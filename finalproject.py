@@ -20,7 +20,8 @@ class Window():
     def __init__(self):
         gui.theme('BrightColors')
         ''' Sets all gui colorschemes'''
-    
+
+
     def board_chooser(self):
         layout = [   [gui.Text('Choose your board: ')],
                      [gui.Text('Regular Board    |'), gui.Text('Odds & Evens    |'), gui.Text('Triple Chance')],
@@ -442,6 +443,7 @@ class Board_Triple_Chance(Board):
     ''' chance is now tripled ''' 
     
 class Game():
+    scoresheet_number = 1
     def __init__(self):
         self.playernumber = 2
         self.playernames = []
@@ -475,12 +477,25 @@ class Game():
         ''' designates the board attributes to the proper board type '''
     
     def how_to_play(self):
-        print("Define Rules Here")
+        print('Yahtzee is a game of rolling dice and scoring based on those rolls.\n'
+              'You will have three chances to roll your dice and can choose which dice to reroll\n'
+              'Once you are done rolling, you can choose how to score your turn:\n'
+              '1-6: A sum of the dice with the same value of the method numer\n'
+              '3 of a kind: A sum of all dice if three of the dice are the same number\n'
+              '4 of a kind: The same as above, but four dice must be the same\n'
+              'Full House: 3 dice must have the same number and 2 dice must have another that is the same\n'
+              'Small Straight: Four numbers in a row, ie 1, 2, 3, 4\n'
+              'Large Straight: All five numbers in a row, ie 1, 2, 3, 4, 5\n'
+              'Yahtzee: All five dice are the same number\n'
+              'Chance: The sum of all dice with no conditions\n\n'
+              'All of these methods can only be used once. Once all methods are taken, final scores are tallied\n'
+              'The highest scorer will win')
 
     def display_score(self):
         return(print(self.playerscores))
         
     def make_a_move(self):
+
         if self.movenumber % 2 == 0:
             print("{}, you're up!\n".format(self.playernames[0]))
             print(self.p1board.movedict)
@@ -514,29 +529,44 @@ class Game():
                     print('Move must be represented as a positive integer')
                     move = Window.window_scorep1(self, dice)
                     move = int(move[0])
+                    ''' Value check for whether the move is represented properly'''
+
             except(ValueError):
                 print('Move must be represented as a number')
                 move = Window.window_scorep1(self, dice)
                 move = int(move[0])
+                ''' Asks for the move again if not represented properly '''
                 while move <0:
                     print('Move must be represented as a positive integer')
                     move = Window.window_scorep1(self, dice)
                     move = int(move[0])
+                    ''' Another catch for improper number '''
 
             if move not in self.p1board.movelist:
                 move = int(input("Move not available. Which move will you make? "))
                 move = int(move[0])
+                ''' A check for if the move is not in the range of possible moves '''
+
             self.playerscores[self.playernames[0]] += self.p1board.movemaker(move, dice)
+            ''' This adds the value returned by movemaker to the players score '''
+
             if move in range(1,7):
                 self.p1board.lowerscore += self.p1board.movemaker(move, dice)
+            ''' This adds the value of the score to the lower score checker '''
+
             if 12 not in self.p1board.movelist:
                 if self.p1board.movemaker(12, dice) == 50:
                     self.playerscores[self.playernames[0]] += 50
+            ''' This adds an extra 50 points to the players score if they score yahtzee more than once '''
             self.p1board.movelist.remove(move)
+            ''' Removes the move made from the list of remaining moves '''
             del self.p1board.movedict[move]
+            ''' Deletes the move from the dictionary of moves '''
             self.movenumber += 1
+            ''' Increases movenumber to change it to the next players turn '''
             print("\n\n\n\n\n\n")
             return self.playerscores[self.playernames[0]]
+            ''' returns an updated score '''
         
         else:
             ''' THE FOLLOWING CODE IS THE EXACT SAME AS ABOVE, BUT FOR PLAYER 2 '''
@@ -590,21 +620,29 @@ class Game():
         if self.p1board.lowerscore >= 63:
             print("{}, 1 through 6 score bonus reached! 35 points added to your score.".format(self.playernames[0]))
             self.playerscores[self.playernames[0]] += 35
+            ''' This adds 35 points to the players score if they met the proper lower score value '''
         if self.p2board.lowerscore >= 63:
             print("{}, 1 through 6 score bonus reached! 35 points added to your score.".format(self.playernames[1]))
             self.playerscores[self.playernames[1]]
+            ''' Same as above, but for player 2 '''
         print(self.playerscores)
         if self.playerscores[self.playernames[0]] > self.playerscores[self.playernames[1]]:
             print("{}, you win!!".format(self.playernames[0]))
         else:
             print("{}, you win!!".format(self.playernames[1]))
+        ''' This prints the winner of the game after checking the two scores '''
 
+    def file_writer():
+        x = 2
+        
     def play_game(self):
         self.how_to_play()
+        ''' Displays the how to play method after the game is initialized '''
         while self.p2board.movelist != []:
             self.display_score()
             self.make_a_move()
+            ''' Displays the score and makes the next move until no moves are available '''
         return self.get_winner()
-    
+        ''' Gets the winner at the end of the game '''
 game = Game()
 game.play_game()
