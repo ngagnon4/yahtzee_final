@@ -543,7 +543,8 @@ class Game():
                     ''' Another catch for improper number '''
 
             if move not in self.p1board.movelist:
-                move = int(input("Move not available. Which move will you make? "))
+                print("Move not available. Which move will you make? ")
+                move = Window.window_scorep1(self, dice)
                 move = int(move[0])
                 ''' A check for if the move is not in the range of possible moves '''
 
@@ -602,7 +603,9 @@ class Game():
                     move = Window.window_scorep1(self, dice)
                     move = int(move[0])
             if move not in self.p2board.movelist:
-                move = int(input("Move not available. Which move will you make? "))
+                print("Move not available. Which move will you make? ")
+                move = Window.window_scorep2(self, dice)
+                move = int(move[0])
             self.playerscores[self.playernames[1]] += self.p2board.movemaker(move, dice)
             if move in range(1,7):
                 self.p2board.lowerscore += self.p2board.movemaker(move, dice)
@@ -632,8 +635,14 @@ class Game():
             print("{}, you win!!".format(self.playernames[1]))
         ''' This prints the winner of the game after checking the two scores '''
 
-    def file_writer():
-        x = 2
+    def file_writer(self):
+        Game.scoresheet_number += 1
+        with open('pythonyahtzee.txt', 'at') as file:
+            file.write('Scores for Game ' + str(Game.scoresheet_number) + ': \n')
+            file.write(str(game.playerscores))
+            file.write('\n -----------------------------------------------\n')
+
+
         
     def play_game(self):
         self.how_to_play()
@@ -642,6 +651,7 @@ class Game():
             self.display_score()
             self.make_a_move()
             ''' Displays the score and makes the next move until no moves are available '''
+        self.file_writer()
         return self.get_winner()
         ''' Gets the winner at the end of the game '''
 game = Game()
