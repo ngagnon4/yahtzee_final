@@ -439,7 +439,8 @@ class Board_Triple_Chance(Board):
     def yahtzee(self, dice):
         return super().yahtzee(dice)
     def chance(self, dice):
-        return (super().chance(dice) * 3)
+        score = super().chance(dice)
+        return score * 3
     ''' chance is now tripled ''' 
     
 class Game():
