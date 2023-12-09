@@ -1,5 +1,5 @@
 import unittest as test
-from finalproject import Dice, Board, Board_Lower, Board_Triple_Chance
+from finalproject import Dice, Board, Game, Board_Lower
 
 class Dice_Test(test.TestCase):
     def test_basic(self):
@@ -55,6 +55,14 @@ class Odd_Even_Board_Test(test.TestCase):
         self.assertEqual(Board_Lower.odds(self,dice), 4)
         self.assertEqual(Board_Lower.evens(self,dice), 12)
 
+class Game_Test(test.TestCase):
+    
+    def test_initialization(self):
+        game = Game()
+        ''' MUST ENTER NAMES AS Nick AND Noah'''
+        self.assertEqual(game.playernames[0], 'Nick')
+        self.assertEqual(game.playernames[1], 'Noah')
+        ''' Name Test '''
 
 
 test.main()

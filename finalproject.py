@@ -655,5 +655,6 @@ class Game():
         self.file_writer()
         return self.get_winner()
         ''' Gets the winner at the end of the game '''
+
 game = Game()
 game.play_game()
