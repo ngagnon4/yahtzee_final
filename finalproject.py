@@ -465,7 +465,6 @@ class Game():
             print("Please enter either 1, 2, or 3")
             board = Window.board_chooser(self)
         ''' runs board choosing gui, catching errors with invalid entries '''
-
         if board == 1:
             self.p1board = Board()
             self.p2board = Board()
