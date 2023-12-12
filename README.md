@@ -7,10 +7,9 @@ If you do not, the code will not run properly.
 To install, please enter the following command into your computer's terminal
 
 pip install pysimplegui
-
-or 
-
+or
 pip3 install pysimplegui
+
 --------------------------------------------------------------------------------------------------------------
 This program will define the way you should represent inputs
 Please follow the program's directions for inputs
@@ -20,6 +19,7 @@ This is done to allow mistakes and corrections to them, but also provides a way 
 All inputs in the GUI are expected to be represented as numbers
 A string of '123' for dice rerolls will reroll the first, second, and third dice. 
 To exit a GUI and send the string, simply hit the button at the bottom of the screen.
+
 --------------------------------------------------------------------------------------------------------------
 Play-by-play on how to use the program:
 
