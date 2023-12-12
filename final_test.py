@@ -1,5 +1,5 @@
 import unittest as test
-from finalproject import Dice, Board, Game, Board_Lower
+from finalproject import Dice, Board, Game, Board_Lower, Window
 
 class Dice_Test(test.TestCase):
     def test_basic(self):
@@ -63,6 +63,15 @@ class Game_Test(test.TestCase):
         self.assertEqual(game.playernames[0], 'Nick')
         self.assertEqual(game.playernames[1], 'Noah')
         ''' Name Test '''
+
+class Window_Test(test.TestCase):
+    
+    def test_window(self):
+        ''' MUST CHOOSE BOARD ONE '''
+        ''' TESTS IF VALUES ARE RETURNED BY GUI '''
+        values = Window.board_chooser(self)
+        self.assertEqual(values[0], '1')
+
 
 
 test.main()
